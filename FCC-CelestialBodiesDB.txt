@@ -1,0 +1,21 @@
+CREATE DATABASE UNIVERSE;
+
+CREATE TABLE galaxy(galaxy_id SERIAL PRIMARY KEY, name VARCHAR(30) UNIQUE, description TEXT, distance_from_earth NUMERIC, stars INT, has_life BOOL);
+
+CREATE TABLE star(star_id SERIAL PRIMARY KEY, galaxy_id INT REFERENCES galaxy(galaxy_id), name VARCHAR(30) UNIQUE, description TEXT, distance_from_earth NUMERIC(4,1));
+
+CREATE TABLE planet(planet_id SERIAL PRIMARY KEY, star_id INT REFERENCES star(star_id) NOT NULL, name VARCHAR(30) UNIQUE NOT NULL, description TEXT, distance_from_earth NUMERIC(4,1), has_life BOOL);
+
+CREATE TABLE moon(moon_id SERIAL PRIMARY KEY, planet_id INT REFERENCES planet(planet_id) NOT NULL, name VARCHAR(30) UNIQUE NOT NULL, description TEXT, distance_from_earth NUMERIC(4,1);
+
+CREATE TABLE continent(continent_id SERIAL PRIMARY KEY, planet_id INT REFERENCES planet(planet_id) NOT NULL, name VARCHAR(30) UNIQUE NOT NULL, population INT);
+
+INSERT INTO galaxy(name, description, distance_from_earth, stars, has_life) VALUES ('Milky Way','Desc',100,1,True),('B','Desc',200,2,False),('C','Desc',300,3,False),('D','Desc',400,4,False),('E','Desc',500,5,False),('F','Desc',600,6,False);
+
+INSERT INTO star(galaxy_id, name, description, distance_from_earth) VALUES (1, 'Sun', 'The sun', 100),(2,'B','Desc',200),(3,'C','Desc',300),(4,'D','Desc',400),(5,'E','Desc',500),(6,'F','Desc',600);
+
+INSERT INTO planet(star_id,name,description,distance_from_earth,has_life) VALUES (1,'Mercury','Planet',2,False), (1,'Venus','Planet',1,False), (1,'Earth','Earth',0,True), (1,'Mars','Planet',1,False), (1,'Jupiter','Planet',2,False), (1,'Saturn','Planet',3,False), (1,'Uranus','Planet',4,False), (1,'Neptune','Planet',5,False), (2,'A','Planet',6,False), (3,'B','Planet',7,False), (4,'C','Planet',8,False), (5,'D','Planet',9,False);
+
+INSERT INTO moon(planet_id, name, description, distance_from_earth) VALUES (1,'Moon','Desc',10), (2,'A','Desc',20), (2,'B','Desc',30), (3,'C','Desc',40), (3,'D','Desc',50), (4,'E','Desc',60), (4,'F','Desc',70), (5,'G','Desc',80), (5,'H','Desc',90), (6,'I','Desc',100), (6,'J','Desc',110), (7,'K','Desc',120), (7,'L','Desc',130), (8,'M','Desc',140), (8,'N','Desc',150), (9,'O','Desc',160), (9,'P','Desc',170), (10,'Q','Desc',180), (10,'R','Desc',190), (11,'S','Desc',200);
+
+INSERT INTO continent(planet_id,name,population) VALUES (1,'America',500),(1,'Europa',500),(1,'Africa',1000);
